@@ -44,30 +44,45 @@ class Main {
     }
 
     public static void main (String[] args) {
-        ElevatorSystem elevatorSystem = new ElevatorSystem(16, 16);
+        ElevatorSystem elevatorSystem;
         Scanner scanner = new Scanner(System.in);
-        while (true) {
+
+        while(true) {
             String line = scanner.nextLine();
             String[] splitLine = line.split(" ");
-            // Process each line of the file here.
-            if (splitLine[0].equals("PICKUP")) {
-                pickup(elevatorSystem, splitLine);
-            }
-            else if (splitLine[0].equals("STEP")) {
-                elevatorSystem.step();
-            }
-            else if (splitLine[0].equals("UPDATE")) {
-                update(elevatorSystem, splitLine);
-            }
-            else if (splitLine[0].equals("STATUS")) {
-                System.out.println(elevatorSystem.status());
-            }
-            else if(splitLine[0].equals("QUIT")) {
-                scanner.close();
+            if (splitLine[0].equals("SET") && splitLine.length == 3) {
+                int numElevators = Integer.parseInt(splitLine[1]);
+                int numFloors = Integer.parseInt(splitLine[2]);
+                elevatorSystem = new ElevatorSystem(numElevators, numFloors);
                 break;
             }
             else {
                 System.out.println("Invalid command");
+            }
+        }
+        
+        while (true) {
+            String line = scanner.nextLine();
+            String[] splitLine = line.split(" ");
+
+            switch(splitLine[0]) {
+                case "PICKUP":
+                    pickup(elevatorSystem, splitLine);
+                    break;
+                case "STEP":
+                    elevatorSystem.step();
+                    break;
+                case "UPDATE":
+                    update(elevatorSystem, splitLine);
+                    break;
+                case "STATUS":
+                    System.out.println(elevatorSystem.status());
+                    break;
+                case "QUIT":
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid command");
             }
         }
     }

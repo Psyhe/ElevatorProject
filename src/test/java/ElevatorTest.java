@@ -262,7 +262,16 @@ public class ElevatorTest {
         System.err.println(elevator1.getCurrentFloor());
         elevator1.step();
         System.err.println(elevator1.getCurrentFloor());
+        elevator1.step();
+        System.err.println(elevator1.getCurrentFloor());
         elevator1.pickup(2, Elevator.UP);
+        System.err.println(elevator1.getCurrentFloor());
+        elevator1.pickup(1, Elevator.DOWN);
+        elevator1.pickup(0, Elevator.DOWN);
+        elevator1.step();
+        assertEquals(4, elevator1.getCurrentFloor());
+        System.err.println(elevator1.getCurrentFloor());
+        elevator1.pickup(1, Elevator.UP);
         elevator1.step();
         System.err.println(elevator1.getCurrentFloor());
         elevator1.pickup(2, Elevator.UP);
