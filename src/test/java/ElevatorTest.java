@@ -188,6 +188,7 @@ public class ElevatorTest {
         elevator1.pickup(0, Elevator.UP);
         elevator1.update(0, 1);
         elevator1.step();
+        elevator1.step();
         int floor = elevator1.getCurrentFloor();
         assertEquals(1, floor);
     }
@@ -251,5 +252,45 @@ public class ElevatorTest {
         statusCorrect.set(2, 1);
         status1 = elevator1.status();
         assertEquals(statusCorrect, status1);
+    }
+
+    @Test
+    public void testStarvation() {
+        elevator1.pickup(1, Elevator.UP);
+        elevator1.pickup(4, Elevator.UP);
+        elevator1.step();
+        System.err.println(elevator1.getCurrentFloor());
+        elevator1.step();
+        System.err.println(elevator1.getCurrentFloor());
+        elevator1.pickup(2, Elevator.UP);
+        elevator1.step();
+        System.err.println(elevator1.getCurrentFloor());
+        elevator1.pickup(2, Elevator.UP);
+        elevator1.step();
+        System.err.println(elevator1.getCurrentFloor());
+        elevator1.pickup(1, Elevator.UP);
+        elevator1.step();
+        System.err.println(elevator1.getCurrentFloor());
+        elevator1.pickup(2, Elevator.UP);
+        elevator1.step();
+        System.err.println(elevator1.getCurrentFloor());
+        elevator1.pickup(1, Elevator.UP);
+        elevator1.step();
+        System.err.println(elevator1.getCurrentFloor());
+        elevator1.pickup(2, Elevator.UP);
+        elevator1.step();
+        System.err.println(elevator1.getCurrentFloor());
+        elevator1.step();
+        System.err.println(elevator1.getCurrentFloor());
+        elevator1.step();
+        System.err.println(elevator1.getCurrentFloor());
+        elevator1.step();
+        System.err.println(elevator1.getCurrentFloor());
+        elevator1.step();
+        System.err.println(elevator1.getCurrentFloor());
+        elevator1.step();
+        System.err.println(elevator1.getCurrentFloor());
+        elevator1.step();
+        System.err.println(elevator1.getCurrentFloor());
     }
 }

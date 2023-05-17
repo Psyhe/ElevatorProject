@@ -1,50 +1,68 @@
 package elevatorsystem;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 class Main {
-    static void parseArguments(ElevatorSystem elevatorSystem) {
-        try {
-            File file = new File("data.txt");
-            Scanner scanner = new Scanner(file);
-
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                // Process each line of the file here
-                System.out.println(line);
+    private static void pickup(ElevatorSystem elevatorSystem, String[] splitLine) {
+        if (splitLine.length != 3) {
+            System.out.println("Invalid command");
+            return;
+        }
+        else {
+            try {
+                int floor = Integer.parseInt(splitLine[1]);
+                int direction = Integer.parseInt(splitLine[2]);
+                if (direction >= 0) {
+                    elevatorSystem.pickup(floor, Elevator.UP);
+                }
+                else {
+                    elevatorSystem.pickup(floor, Elevator.DOWN);
+                }
             }
+            catch (Exception e) {
+                System.out.println("Invalid floor");
+            }
+        }
+    }
 
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+    private static void update(ElevatorSystem elevatorSystem, String[] splitLine) {
+        if (splitLine.length != 4) {
+            System.out.println("Invalid command");
+            return;
+        }
+        else {
+            try {
+                int id = Integer.parseInt(splitLine[1]);
+                int currentFloor = Integer.parseInt(splitLine[2]);
+                int requestedFloor = Integer.parseInt(splitLine[3]);
+                elevatorSystem.update(id, currentFloor, requestedFloor);
+            }
+            catch (Exception e) {
+                System.out.println("Invalid floor or id");
+            }
         }
     }
 
     public static void main (String[] args) {
         ElevatorSystem elevatorSystem = new ElevatorSystem(16, 16);
-        System.out.println("helloworld");
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String line = scanner.nextLine();
             String[] splitLine = line.split(" ");
-            // Process each line of the file here
-            System.out.println(splitLine[0]);
+            // Process each line of the file here.
             if (splitLine[0].equals("PICKUP")) {
-                System.out.println("PICKUP");
+                pickup(elevatorSystem, splitLine);
             }
             else if (splitLine[0].equals("STEP")) {
-                System.out.println("STEP");
+                elevatorSystem.step();
             }
             else if (splitLine[0].equals("UPDATE")) {
-                System.out.println("UPDATE");
+                update(elevatorSystem, splitLine);
             }
             else if (splitLine[0].equals("STATUS")) {
-                System.out.println("STATUS");
+                System.out.println(elevatorSystem.status());
             }
             else if(splitLine[0].equals("QUIT")) {
-                System.out.println("QUIT");
                 scanner.close();
                 break;
             }

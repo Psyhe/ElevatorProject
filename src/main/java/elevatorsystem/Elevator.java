@@ -131,67 +131,10 @@ public class Elevator implements ElevatorInterface{
             downQueue.poll();
         }
         
-        quantStep();
+        if (currentOrder != currentFloor) {
+            quantStep();
+        }
     }
-
-    // @Override
-    // public void step() {
-    //     if (currentOrder == NO_ORDER) {
-    //         if (direction == UP) {
-    //             if (upQueue.size() > 0) {
-    //                 currentOrder = upQueue.poll();
-    //             } else if (downQueue.size() > 0) {
-    //                 currentOrder = -downQueue.poll();
-    //                 // exception
-    //                 if (currentOrder <=  currentFloor) {
-    //                     direction = DOWN;
-    //                 }
-    //             }
-    //             else {
-    //                 return;
-    //             }
-    //         } else if (direction == DOWN) {
-    //             if (downQueue.size() > 0) {
-    //                 currentOrder = -downQueue.poll();
-    //             } else if (upQueue.size() > 0) {
-    //                 currentOrder = upQueue.poll();
-    //                 if (currentOrder >=  currentFloor) {
-    //                     direction = UP;
-    //                 }
-    //             }
-    //             else {
-    //                 return;
-    //             }
-    //         }
-    //     }
-
-    //     quantStep();
-
-    //     for (int i = 0; i < pressedButtons[currentFloor].size(); i++) {
-    //         int destinationFloor = pressedButtons[currentFloor].get(i);
-    //         if (destinationFloor > currentFloor) {
-    //             upQueue.add(destinationFloor);
-    //         } else if (destinationFloor < currentFloor) {
-    //             downQueue.add(-destinationFloor);
-    //         }
-    //     }
-
-    //     if (currentFloor == currentOrder) {
-    //         if (direction == UP) {
-    //             while (upQueue.size() > 0 && upQueue.peek() == currentFloor) {
-    //                 upQueue.poll();
-    //             }
-    //         }
-
-    //         if (direction == DOWN) {
-    //             while (downQueue.size() > 0 && downQueue.peek() == currentFloor) {
-    //                 downQueue.poll();
-    //             }
-    //         }
-
-    //         currentOrder = NO_ORDER;
-    //     }
-    // }
 
     @Override
     public List<Integer> status() {

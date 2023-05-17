@@ -101,4 +101,8 @@ public class ElevatorSystem {
         
         return status;
     }   
+
+    public Elevator getElevator(int elevatorId) {
+        return elevators[elevatorId];
+    }
 }
