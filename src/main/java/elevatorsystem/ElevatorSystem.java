@@ -14,7 +14,7 @@ public class ElevatorSystem {
         elevators = new Elevator[numElevators];
 
        for (int i = 0; i < numElevators; i++) {
-            elevators[i] = new Elevator(i);
+            elevators[i] = new Elevator(i, numFloors);
         }
     }
 
@@ -48,8 +48,12 @@ public class ElevatorSystem {
         }
     }
 
-    public void update(int elevatorId, int floor) {
-        if (floor > numFloors || floor < 0) {
+    public void update(int elevatorId, int currentFloor, int destinationFloor) {
+        if (currentFloor > numFloors || currentFloor < 0) {
+            throw new IllegalArgumentException("Floor is out of range");
+        }
+
+        if (destinationFloor > numFloors || destinationFloor < 0) {
             throw new IllegalArgumentException("Floor is out of range");
         }
 
@@ -57,7 +61,7 @@ public class ElevatorSystem {
             throw new IllegalArgumentException("Elevator ID is out of range");
         }
 
-        elevators[elevatorId].update(floor);
+        elevators[elevatorId].update(currentFloor, destinationFloor);
     }
 
     public class MyElevator implements Runnable {
