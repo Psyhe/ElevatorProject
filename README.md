@@ -12,6 +12,7 @@ I understand "step()" as moving to the next floor by either going one floor upwa
 To run the program, please follow these commands in the project folder within the terminal:
 
 mvn clean install
+
 java -cp target/classes elevatorsystem.Main
 
 1. The first command must be "SET <number of elevators> <number of floors>".
