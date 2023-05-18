@@ -29,6 +29,8 @@ public class Elevator implements ElevatorInterface{
         pressedButtons = newArrayOfLists;
     }
 
+    // Since staying at the floor and moving through takes the same amount
+    // of time and we need to ignore capacity, we can just add the floor to the queue.
     @Override
     public void pickup(int floor, int mydirection) {
         if (floor >= currentFloor) {
