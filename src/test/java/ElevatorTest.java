@@ -69,7 +69,7 @@ public class ElevatorTest {
     }
 
     @Test
-    public void testDifferentDirections() {
+    public void testDifferentDirections1() {
         elevator1.pickup(3, Elevator.UP);
         elevator1.pickup(2, Elevator.UP);
         elevator1.pickup(1, Elevator.UP);
@@ -103,35 +103,6 @@ public class ElevatorTest {
         elevator1.pickup(1, Elevator.UP);
         elevator1.pickup(4, Elevator.DOWN);
         elevator1.pickup(5, Elevator.DOWN);
-        elevator1.step();
-        int floor = elevator1.getCurrentFloor();
-        assertEquals(1, floor);
-        elevator1.step();
-        floor = elevator1.getCurrentFloor();
-        assertEquals(2, floor);
-        elevator1.step();
-        floor = elevator1.getCurrentFloor();
-        assertEquals(3, floor);
-        elevator1.step();
-        floor = elevator1.getCurrentFloor();
-        assertEquals(4, floor);
-        elevator1.step();
-        floor = elevator1.getCurrentFloor();
-        assertEquals(5, floor);
-    }
-
-    @Test
-    public void testUpdate1() {
-        elevator1.pickup(3, Elevator.UP);
-        elevator1.pickup(2, Elevator.UP);
-        elevator1.pickup(1, Elevator.UP);
-        elevator1.pickup(4, Elevator.DOWN);
-        elevator1.pickup(5, Elevator.DOWN);
-        elevator1.update(3, 1);
-        elevator1.update(2, 1);
-        elevator1.update(1, 1);
-        elevator1.update(4, 1);
-        elevator1.update(5, 1);
         elevator1.step();
         int floor = elevator1.getCurrentFloor();
         assertEquals(1, floor);
@@ -187,6 +158,35 @@ public class ElevatorTest {
     }
 
     @Test
+    public void testUpdate1() {
+        elevator1.pickup(3, Elevator.UP);
+        elevator1.pickup(2, Elevator.UP);
+        elevator1.pickup(1, Elevator.UP);
+        elevator1.pickup(4, Elevator.DOWN);
+        elevator1.pickup(5, Elevator.DOWN);
+        elevator1.update(3, 1);
+        elevator1.update(2, 1);
+        elevator1.update(1, 1);
+        elevator1.update(4, 1);
+        elevator1.update(5, 1);
+        elevator1.step();
+        int floor = elevator1.getCurrentFloor();
+        assertEquals(1, floor);
+        elevator1.step();
+        floor = elevator1.getCurrentFloor();
+        assertEquals(2, floor);
+        elevator1.step();
+        floor = elevator1.getCurrentFloor();
+        assertEquals(3, floor);
+        elevator1.step();
+        floor = elevator1.getCurrentFloor();
+        assertEquals(4, floor);
+        elevator1.step();
+        floor = elevator1.getCurrentFloor();
+        assertEquals(5, floor);
+    }
+
+    @Test
     public void testUpdate2() {
         elevator1.pickup(0, Elevator.UP);
         elevator1.update(0, 1);
@@ -222,7 +222,7 @@ public class ElevatorTest {
     }
 
     @Test
-    public void testStatus() {
+    public void testStatus1() {
         List<Integer> statusCorrect = new ArrayList<>();
         statusCorrect.add(10);
         statusCorrect.add(0);

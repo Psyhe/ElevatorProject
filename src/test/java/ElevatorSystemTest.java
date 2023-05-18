@@ -88,19 +88,7 @@ public class ElevatorSystemTest {
         assertEquals(15, smallSystem.getElevator(0).getCurrentOrder());
     }
 
-    @Test
-    public void statusTest() {
-        elevatorSystem.pickup(8, Elevator.UP);
-        elevatorSystem.pickup(9, Elevator.UP);
-        for (int i = 0; i < 7; i++)
-            elevatorSystem.step();
-        elevatorSystem.pickup(5, Elevator.UP);
-        elevatorSystem.step();
-        elevatorSystem.step();
-        elevatorSystem.step();
-        elevatorSystem.pickup(1,Elevator.DOWN);
-        elevatorSystem.step();
-
+    private int[] statusTestParameters1() {
         int tab[] = new int[30];
 
         for (int i = 0; i < 10; i++) {
@@ -114,13 +102,44 @@ public class ElevatorSystemTest {
         tab[5] = 5;
         tab[7] = 1;
         tab[8] = 1;
+
+        return tab;
+    }
+
+    private int[] statusTestParameters2() {
+        int tab[] = new int[6];
+
+        for (int i = 0; i < 2; i++) {
+            tab[i*3] = i;
+            tab[i*3+1] = 0;
+            tab[i*3+2] = 0;
+        }
+
+        return tab;
+    }
+
+    @Test
+    public void statusTest() {
+        elevatorSystem.pickup(8, Elevator.UP);
+        elevatorSystem.pickup(9, Elevator.UP);
+        for (int i = 0; i < 7; i++)
+            elevatorSystem.step();
+        elevatorSystem.pickup(5, Elevator.UP);
+        elevatorSystem.step();
+        elevatorSystem.step();
+        elevatorSystem.step();
+        elevatorSystem.pickup(1,Elevator.DOWN);
+        elevatorSystem.step();
+
+        int tab[] = statusTestParameters1();
+
         Set<List<Integer>> mystatus = customSet(tab);
         Set<List<Integer>> status = elevatorSystem.status();
-        System.err.println(status);
-        System.err.println(mystatus);
         assertEquals(status, mystatus);
     }
 
+    // This test is the same as the previous one, but with a different pickup
+    // call. It is used to check two different situations, due to previous errors.
     @Test
     public void statusTest2() {
         elevatorSystem.pickup(8, Elevator.UP);
@@ -133,9 +152,39 @@ public class ElevatorSystemTest {
         elevatorSystem.step();
         elevatorSystem.pickup(2,Elevator.DOWN);
         elevatorSystem.step();
-        Set<List<Integer>> mystatus = new HashSet<>();
-        List<Integer> list1 = List.of(8, 9);
+
+        int[] tab = statusTestParameters1();
+        tab[8] = 2;
+
+        Set<List<Integer>> mystatus = customSet(tab);
         Set<List<Integer>> status = elevatorSystem.status();
-        System.err.println(status);
+        assertEquals(status, mystatus);
+    }
+
+    @Test
+    public void statusTest3() {
+        smallSystem.pickup(10, Elevator.UP);
+        smallSystem.pickup(18, Elevator.UP);
+        smallSystem.pickup(17, Elevator.UP);
+        for (int i = 0; i < 16; i++) {
+            smallSystem.step();
+        }
+        smallSystem.pickup(15, Elevator.UP);
+        smallSystem.step();
+
+        int tab[] = statusTestParameters2();
+        tab[1] = 18;
+        tab[2] = 18;
+        Set<List<Integer>> mystatus = customSet(tab);
+        smallSystem.step();
+        assertEquals(mystatus, smallSystem.status());
+
+        smallSystem.step();
+        smallSystem.step();
+
+        tab[1] = 16;
+        tab[2] = 15;
+        mystatus = customSet(tab);
+        assertEquals(mystatus, smallSystem.status());
     }
 }
