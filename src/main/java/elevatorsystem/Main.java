@@ -1,6 +1,7 @@
 package elevatorsystem;
 
 import java.util.Scanner;
+// author: Maria Wysogląd
 
 public class Main {
     private static void pickup(ElevatorSystem elevatorSystem, String[] splitLine) {
