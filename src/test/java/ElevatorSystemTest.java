@@ -15,20 +15,6 @@ public class ElevatorSystemTest {
         smallSystem = new ElevatorSystem(2, 20);
     }
 
-    // private List<List<Integer>> customList(int tab[]) {
-    //     List<List<Integer>> set = new ArrayList<>();
-
-    //     for (int i = 0; i < tab.length; i+=3) {
-    //         List<Integer> list = new ArrayList<>();
-    //         list.add(tab[i]);
-    //         list.add(tab[i+1]);
-    //         list.add(tab[i+2]);
-    //         set.add(list);
-    //     }
-        
-    //     return set;
-    // }
-
     @Test
     public void testElevatorSystemPickup() {
         elevatorSystem.pickup(2, Elevator.UP);
@@ -82,36 +68,6 @@ public class ElevatorSystemTest {
         assertEquals(15, smallSystem.getElevator(0).getCurrentOrder());
     }
 
-    // private int[] statusTestParameters1() {
-    //     int tab[] = new int[30];
-
-    //     for (int i = 0; i < 10; i++) {
-    //         tab[i*3] = i;
-    //         tab[i*3+1] = 0;
-    //         tab[i*3+2] = 0;
-    //     }
-    //     tab[1] = 9;
-    //     tab[2] = 9;
-    //     tab[4] = 4;
-    //     tab[5] = 5;
-    //     tab[7] = 1;
-    //     tab[8] = 1;
-
-    //     return tab;
-    // }
-
-    // private int[] statusTestParameters2() {
-    //     int tab[] = new int[6];
-
-    //     for (int i = 0; i < 2; i++) {
-    //         tab[i*3] = i;
-    //         tab[i*3+1] = 0;
-    //         tab[i*3+2] = 0;
-    //     }
-
-    //     return tab;
-    // }
-
     @Test
     public void statusTest() {
         elevatorSystem.pickup(8, Elevator.UP);
@@ -129,8 +85,7 @@ public class ElevatorSystemTest {
 
         List<List<Integer>> mystatus = Parameters.customList(tab);
         List<List<Integer>> status = elevatorSystem.status();
-        // Set<List<Integer>> mystatus = customList(tab);
-        // Set<List<Integer>> status = elevatorSystem.status();
+
         assertEquals(status, mystatus);
     }
 
@@ -154,8 +109,7 @@ public class ElevatorSystemTest {
 
         List<List<Integer>> mystatus = Parameters.customList(tab);
         List<List<Integer>> status = elevatorSystem.status();
-        // Set<List<Integer>> mystatus = customList(tab);
-        // Set<List<Integer>> status = elevatorSystem.status();
+
         assertEquals(status, mystatus);
     }
 
@@ -174,7 +128,6 @@ public class ElevatorSystemTest {
         tab[1] = 18;
         tab[2] = 18;
         List<List<Integer>> mystatus = Parameters.customList(tab);
-        // Set<List<Integer>> mystatus = customList(tab);
         smallSystem.step();
         assertEquals(mystatus, smallSystem.status());
 

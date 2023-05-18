@@ -15,16 +15,13 @@ public class Elevator implements ElevatorInterface{
     private int currentOrder = 0;
     private PriorityQueue<Integer> upQueue = new PriorityQueue<Integer>();
     private PriorityQueue<Integer> downQueue = new PriorityQueue<Integer>();
-    // private List<Integer>[] pressedButtons;
     private ArrayList<ArrayList<Integer>> pressedButtons;
 
     public Elevator(int ID, int numFloors) {
         this.ID = ID;
         this.numFloors = numFloors;
         
-        // List<Integer>[] newArrayOfLists = new ArrayList[numFloors + 1];
         ArrayList<ArrayList<Integer>> newArrayOfLists = new ArrayList<ArrayList<Integer>>(numFloors + 1);
-
         for (int i = 0; i <= numFloors; i++) {
             ArrayList<Integer> sublist = new ArrayList<Integer>();
             newArrayOfLists.add(sublist);
@@ -34,12 +31,6 @@ public class Elevator implements ElevatorInterface{
 
     @Override
     public void pickup(int floor, int mydirection) {
-        // if (mydirection == UP) {
-        //     upQueue.add(floor);
-        // } else if (mydirection == DOWN) {
-        //     downQueue.add(-floor);
-        // }
-
         if (floor >= currentFloor) {
             upQueue.add(floor);
         } else {
@@ -49,7 +40,6 @@ public class Elevator implements ElevatorInterface{
 
     @Override
     public void update(int currentFloor, int destinationFloor) {
-        //pressedButtons[currentFloor].add(destinationFloor);
         pressedButtons.get(currentFloor).add(destinationFloor);
     }
 
@@ -72,7 +62,6 @@ public class Elevator implements ElevatorInterface{
 
     private void chooseNextFloor() {
         // We need to know where to go.
-        // Kiedy musimy wybrać następne pole?
         if (direction == UP) {
             if (upQueue.size() > 0) {
                 currentOrder = upQueue.poll();
@@ -81,7 +70,6 @@ public class Elevator implements ElevatorInterface{
                 }
             } else if (downQueue.size() > 0) {
                 currentOrder = -downQueue.poll();
-                // exception
                 if (currentOrder <  currentFloor) {
                     direction = DOWN;
                 }

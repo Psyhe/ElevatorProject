@@ -85,35 +85,6 @@ public class Main {
                     System.out.println("Invalid command");
             }
         }
-
         scanner.close();
     }
 }
-// package elevatorsystem;
-// import java.util.Scanner;
-
-// public class Main {
-//     public static void main(String[] args) {
-
-//         Scanner scanner = new Scanner(System.in);
-
-//         while (scanner.hasNextLine()) {
-//             String line = scanner.nextLine();
-//             System.out.println(line);
-//         }
-
-//         // // Ask for user input
-//         // System.out.println("What is your first name?");
-//         // String firstName = scanner.nextLine();
-
-//         // System.out.println("What is your last name?");
-//         // String lastName = scanner.nextLine();
-
-//         // System.out.println("What is your email address?");
-//         // String email = scanner.nextLine();
-
-//         // print to the console in the format of firstname,lastname,email
-//         //System.out.println(firstName + "," + lastName + "," + email);
-//         scanner.close();
-//     }
-// }
