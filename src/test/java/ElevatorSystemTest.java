@@ -147,7 +147,6 @@ public class ElevatorSystemTest {
         smallSystem.update(0, 6, 14);
         for (int i = 0; i < 11; i++)
             smallSystem.step();
-        System.err.println(smallSystem.status());
         assertEquals(14, smallSystem.getElevator(0).getCurrentOrder());
         assertEquals(11, smallSystem.getElevator(0).getCurrentFloor());
     }

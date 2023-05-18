@@ -107,6 +107,7 @@ public class Elevator implements ElevatorInterface{
         pressedButtons.get(x).clear();
     }
 
+    // Current floor is set before real step is taken, but it is set at <step> function.
     @Override
     public void step() {
         addUpdated(currentFloor);
