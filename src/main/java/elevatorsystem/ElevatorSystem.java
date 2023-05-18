@@ -18,45 +18,20 @@ public class ElevatorSystem {
         }
     }
 
-    // private int distanceSameDirection(Elevator elevator, int floor) {
-    //     if (elevator.getDirection() == Elevator.UP) {
-    //         if (elevator.getCurrentFloor() <= floor) {
-    //             return Math.abs(elevator.getCurrentFloor() - floor);
-    //         }
-    //         else {
-    //             return numFloors - elevator.getCurrentFloor() + numFloors - floor - 1;
-    //         }
-    //     }
-    //     else {
-    //         if (elevator.getCurrentFloor() >= floor) {
-    //             return Math.abs(elevator.getCurrentFloor() - floor);
-    //         }
-    //         else {
-    //             return elevator.getCurrentFloor() + floor - 1;
-    //         }
-    //     }
-    // }
-
-    // private int distanceDifferentDirection(Elevator elevator, int floor) {
-    //     if (elevator.getDirection() == Elevator.UP) {
-    //         if ()
-    //     }
-    //     else {
-    //         return numFloors - elevator.getCurrentFloor() + numFloors - floor - 1;
-    //     }
-    // }
-
     private Elevator getQuickestElevator(int floor) {
         Elevator optimalElevator = null;
         int distance = Integer.MAX_VALUE;
         for (Elevator elevator: elevators) {
             int shortestDistance;
             int shortestDistanceDifferentDirection = Integer.MAX_VALUE;
-            if (elevator.getDownQueueSize() == 0) {
+            // We can change direction and use shortcut if there is no requests upwards.
+            if (elevator.getDownQueueSize() == 0 && elevator.getDirection() == Elevator.DOWN 
+                && elevator.getCurrentOrder() == elevator.getCurrentFloor()) {
                 shortestDistanceDifferentDirection = Math.abs(elevator.getCurrentFloor() - floor);
             }
 
-            if (elevator.getUpQueueSize() == 0) {
+            if (elevator.getUpQueueSize() == 0 && elevator.getDirection() == Elevator.UP
+                && elevator.getCurrentOrder() == elevator.getCurrentFloor()) {
                 if (shortestDistanceDifferentDirection > Math.abs(elevator.getCurrentFloor() - floor)) {
                     shortestDistanceDifferentDirection = Math.abs(elevator.getCurrentFloor() - floor);
                 }
@@ -97,41 +72,6 @@ public class ElevatorSystem {
 
         Elevator optimalElevator = getQuickestElevator(floor);
 
-        // for (Elevator elevator: elevators) {
-        //     if (direction == Elevator.UP) {
-        //         if (elevator.getCurrentFloor() <= floor) {
-        //             int distance = Math.abs(elevator.getCurrentFloor() - floor);
-        //             if (distance < closestDistance) {
-        //                 optimalElevator = elevator;
-        //                 closestDistance = distance;
-        //             }
-        //         }
-        //         else {
-        //             int distance = numFloors - elevator.getCurrentFloor() + numFloors - floor - 1;
-        //             if (distance < closestDistance) {
-        //                 optimalElevator = elevator;
-        //                 closestDistance = distance;
-        //             }
-        //         }
-        //     }
-        //     else {
-        //         if (elevator.getCurrentFloor() >= floor) {
-        //             int distance = Math.abs(elevator.getCurrentFloor() - floor);
-        //             if (distance < closestDistance) {
-        //                 optimalElevator = elevator;
-        //                 closestDistance = distance;
-        //             }
-        //         }
-        //         else {
-        //             int distance = elevator.getCurrentFloor() + floor - 1;
-        //             if (distance < closestDistance) {
-        //                 optimalElevator = elevator;
-        //                 closestDistance = distance;
-        //             }
-        //         }
-        //     }
-        // }
-
         if (optimalElevator != null) {
             optimalElevator.pickup(floor, direction);
         }
@@ -153,31 +93,9 @@ public class ElevatorSystem {
         elevators[elevatorId].update(currentFloor, destinationFloor);
     }
 
-    public class MyElevator implements Runnable {
-        Elevator elevator;
-
-        public MyElevator(Elevator elevator) {
-            this.elevator = elevator;
-        }
-     
-        public void run() {
-            elevator.step();
-        }
-    }
-
     public void step() {
-        Thread[] threads = new Thread[elevators.length];
-        for (Elevator elevator : elevators) {
-            threads[elevator.getID()] = new Thread(new MyElevator(elevator));
-            threads[elevator.getID()].start();
-        }
-
-        for (Elevator elevator : elevators) {
-            try {
-                threads[elevator.getID()].join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        for (Elevator elevator: elevators) {
+            elevator.step();
         }
     }
 
