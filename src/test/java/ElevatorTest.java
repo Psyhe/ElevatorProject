@@ -45,6 +45,15 @@ public class ElevatorTest {
         int floor = elevator1.getCurrentFloor();
         assertEquals(0, floor);
     }
+    
+    @Test
+    public void testHeighestFloorExists() {
+        elevator1.pickup(5, Elevator.UP);
+        for (int i = 0; i < 5; i++) {
+            elevator1.step();
+        }
+        assertEquals(5, elevator1.getCurrentFloor());
+    }
 
     @Test
     public void testElevatorPickupDOWN1() {

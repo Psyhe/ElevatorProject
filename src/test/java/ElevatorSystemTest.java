@@ -1,13 +1,7 @@
 import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import elevatorsystem.Elevator;
 import elevatorsystem.ElevatorSystem;
 
@@ -21,19 +15,19 @@ public class ElevatorSystemTest {
         smallSystem = new ElevatorSystem(2, 20);
     }
 
-    private Set<List<Integer>> customSet(int tab[]) {
-        Set<List<Integer>> set = new HashSet<>();
+    // private List<List<Integer>> customList(int tab[]) {
+    //     List<List<Integer>> set = new ArrayList<>();
 
-        for (int i = 0; i < tab.length; i+=3) {
-            List<Integer> list = new ArrayList<>();
-            list.add(tab[i]);
-            list.add(tab[i+1]);
-            list.add(tab[i+2]);
-            set.add(list);
-        }
+    //     for (int i = 0; i < tab.length; i+=3) {
+    //         List<Integer> list = new ArrayList<>();
+    //         list.add(tab[i]);
+    //         list.add(tab[i+1]);
+    //         list.add(tab[i+2]);
+    //         set.add(list);
+    //     }
         
-        return set;
-    }
+    //     return set;
+    // }
 
     @Test
     public void testElevatorSystemPickup() {
@@ -88,35 +82,35 @@ public class ElevatorSystemTest {
         assertEquals(15, smallSystem.getElevator(0).getCurrentOrder());
     }
 
-    private int[] statusTestParameters1() {
-        int tab[] = new int[30];
+    // private int[] statusTestParameters1() {
+    //     int tab[] = new int[30];
 
-        for (int i = 0; i < 10; i++) {
-            tab[i*3] = i;
-            tab[i*3+1] = 0;
-            tab[i*3+2] = 0;
-        }
-        tab[1] = 9;
-        tab[2] = 9;
-        tab[4] = 4;
-        tab[5] = 5;
-        tab[7] = 1;
-        tab[8] = 1;
+    //     for (int i = 0; i < 10; i++) {
+    //         tab[i*3] = i;
+    //         tab[i*3+1] = 0;
+    //         tab[i*3+2] = 0;
+    //     }
+    //     tab[1] = 9;
+    //     tab[2] = 9;
+    //     tab[4] = 4;
+    //     tab[5] = 5;
+    //     tab[7] = 1;
+    //     tab[8] = 1;
 
-        return tab;
-    }
+    //     return tab;
+    // }
 
-    private int[] statusTestParameters2() {
-        int tab[] = new int[6];
+    // private int[] statusTestParameters2() {
+    //     int tab[] = new int[6];
 
-        for (int i = 0; i < 2; i++) {
-            tab[i*3] = i;
-            tab[i*3+1] = 0;
-            tab[i*3+2] = 0;
-        }
+    //     for (int i = 0; i < 2; i++) {
+    //         tab[i*3] = i;
+    //         tab[i*3+1] = 0;
+    //         tab[i*3+2] = 0;
+    //     }
 
-        return tab;
-    }
+    //     return tab;
+    // }
 
     @Test
     public void statusTest() {
@@ -131,10 +125,12 @@ public class ElevatorSystemTest {
         elevatorSystem.pickup(1,Elevator.DOWN);
         elevatorSystem.step();
 
-        int tab[] = statusTestParameters1();
+        int tab[] = Parameters.statusTestParameters1();
 
-        Set<List<Integer>> mystatus = customSet(tab);
-        Set<List<Integer>> status = elevatorSystem.status();
+        List<List<Integer>> mystatus = Parameters.customList(tab);
+        List<List<Integer>> status = elevatorSystem.status();
+        // Set<List<Integer>> mystatus = customList(tab);
+        // Set<List<Integer>> status = elevatorSystem.status();
         assertEquals(status, mystatus);
     }
 
@@ -153,11 +149,13 @@ public class ElevatorSystemTest {
         elevatorSystem.pickup(2,Elevator.DOWN);
         elevatorSystem.step();
 
-        int[] tab = statusTestParameters1();
+        int[] tab = Parameters.statusTestParameters1();
         tab[8] = 2;
 
-        Set<List<Integer>> mystatus = customSet(tab);
-        Set<List<Integer>> status = elevatorSystem.status();
+        List<List<Integer>> mystatus = Parameters.customList(tab);
+        List<List<Integer>> status = elevatorSystem.status();
+        // Set<List<Integer>> mystatus = customList(tab);
+        // Set<List<Integer>> status = elevatorSystem.status();
         assertEquals(status, mystatus);
     }
 
@@ -172,10 +170,11 @@ public class ElevatorSystemTest {
         smallSystem.pickup(15, Elevator.UP);
         smallSystem.step();
 
-        int tab[] = statusTestParameters2();
+        int tab[] = Parameters.statusTestParameters2();
         tab[1] = 18;
         tab[2] = 18;
-        Set<List<Integer>> mystatus = customSet(tab);
+        List<List<Integer>> mystatus = Parameters.customList(tab);
+        // Set<List<Integer>> mystatus = customList(tab);
         smallSystem.step();
         assertEquals(mystatus, smallSystem.status());
 
@@ -184,7 +183,7 @@ public class ElevatorSystemTest {
 
         tab[1] = 16;
         tab[2] = 15;
-        mystatus = customSet(tab);
+        mystatus = Parameters.customList(tab);
         assertEquals(mystatus, smallSystem.status());
     }
 
@@ -206,14 +205,17 @@ public class ElevatorSystemTest {
         smallSystem.update(0, 10, 13);
         for (int i = 0; i < 10; i++)
             smallSystem.step();
-        System.err.println(smallSystem.status());
         smallSystem.pickup(6, Elevator.UP);
-        smallSystem.update(0, 10, 15);
         smallSystem.step();
-        System.err.println(smallSystem.status());
-        for (int i = 0; i < 18; i++)
+        smallSystem.update(0, 10, 15);
+        assertEquals(13, smallSystem.getElevator(0).getCurrentOrder());
+        for (int i = 0; i < 3; i++)
             smallSystem.step();
-        System.err.println(smallSystem.status());
-
+        assertEquals(6, smallSystem.getElevator(0).getCurrentOrder());
+        for (int i = 0; i < 15; i++) {
+            smallSystem.step();
+        }
+        assertEquals(15, smallSystem.getElevator(0).getCurrentFloor());
+        assertEquals(15, smallSystem.getElevator(0).getCurrentOrder());
     }
 }

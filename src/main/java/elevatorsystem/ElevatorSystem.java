@@ -1,8 +1,7 @@
 package elevatorsystem;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class ElevatorSystem {
     private Elevator[] elevators;
@@ -98,8 +97,8 @@ public class ElevatorSystem {
         }
     }
 
-    public Set<List<Integer>> status() {
-        Set<List<Integer>> status = new HashSet<>();
+    public List<List<Integer>> status() {
+        List<List<Integer>> status = new ArrayList<>();
         for (Elevator elevator : elevators) {
             List<Integer> elevatorStatus = elevator.status();
             status.add(elevatorStatus);

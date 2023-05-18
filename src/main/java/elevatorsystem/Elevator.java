@@ -8,7 +8,6 @@ public class Elevator implements ElevatorInterface{
 
     public static int UP = 1;
     public static int DOWN = -1;    
-    public static int NO_ORDER = -1;
     private int numFloors;
     private int ID;
     private int currentFloor = 0;
@@ -116,16 +115,6 @@ public class Elevator implements ElevatorInterface{
         }
 
         pressedButtons.get(x).clear();
-        // for (int i = 0; i < pressedButtons[x].size(); i++) {
-        //     int destinationFloor = pressedButtons[currentFloor].get(i);
-        //     if (destinationFloor > currentFloor) {
-        //         upQueue.add(destinationFloor);
-        //     } else if (destinationFloor < currentFloor) {
-        //         downQueue.add(-destinationFloor);
-        //     }
-        // }
-
-        // pressedButtons[x].clear();
     }
 
     @Override
