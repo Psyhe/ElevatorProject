@@ -187,4 +187,33 @@ public class ElevatorSystemTest {
         mystatus = customSet(tab);
         assertEquals(mystatus, smallSystem.status());
     }
+
+    @Test
+    public void testUpdate1() {
+        smallSystem.pickup(10, Elevator.UP);
+        smallSystem.pickup(18, Elevator.UP);
+        smallSystem.update(0, 6, 14);
+        for (int i = 0; i < 11; i++)
+            smallSystem.step();
+        System.err.println(smallSystem.status());
+        assertEquals(14, smallSystem.getElevator(0).getCurrentOrder());
+        assertEquals(11, smallSystem.getElevator(0).getCurrentFloor());
+    }
+
+    @Test
+    public void testDoubleUpdate1() {
+        smallSystem.pickup(10, Elevator.UP);
+        smallSystem.update(0, 10, 13);
+        for (int i = 0; i < 10; i++)
+            smallSystem.step();
+        System.err.println(smallSystem.status());
+        smallSystem.pickup(6, Elevator.UP);
+        smallSystem.update(0, 10, 15);
+        smallSystem.step();
+        System.err.println(smallSystem.status());
+        for (int i = 0; i < 18; i++)
+            smallSystem.step();
+        System.err.println(smallSystem.status());
+
+    }
 }

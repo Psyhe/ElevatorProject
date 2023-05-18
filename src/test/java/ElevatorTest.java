@@ -353,4 +353,24 @@ public class ElevatorTest {
         assertEquals(0, elevator2.getCurrentOrder());
         assertEquals(2, elevator2.getCurrentFloor());
     }
+
+    @Test
+    public void testDoubleUpdate1(){
+        elevator2.pickup(15, Elevator.UP);
+        elevator2.update(10, 16);
+        for (int i = 0; i < 16; i++) {
+            elevator2.step();
+        }
+        assertEquals(16, elevator2.getCurrentOrder());
+        elevator2.pickup(8, Elevator.DOWN);
+        elevator2.update(10, 7);
+        for (int i = 0; i < 8; i++) {
+            elevator2.step();
+        }
+        assertEquals(8, elevator2.getCurrentOrder());
+        assertEquals(8, elevator2.getCurrentOrder());
+        elevator2.step();
+        assertEquals(7, elevator2.getCurrentOrder());
+        assertEquals(7, elevator2.getCurrentOrder());
+    }
 }

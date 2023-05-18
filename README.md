@@ -8,3 +8,6 @@ elevator, we are going to choose the furthest one, as it may be the first that w
 
 I interpreted update as pressing a button of chosen floor in one of the elevator, therefore I only need
 elevatorId and floor.
+
+mvn clean install
+java -cp target/classes elevatorsystem.Main

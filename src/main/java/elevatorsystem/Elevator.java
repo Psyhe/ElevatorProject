@@ -16,15 +16,19 @@ public class Elevator implements ElevatorInterface{
     private int currentOrder = 0;
     private PriorityQueue<Integer> upQueue = new PriorityQueue<Integer>();
     private PriorityQueue<Integer> downQueue = new PriorityQueue<Integer>();
-    private List<Integer>[] pressedButtons;
+    // private List<Integer>[] pressedButtons;
+    private ArrayList<ArrayList<Integer>> pressedButtons;
 
     public Elevator(int ID, int numFloors) {
         this.ID = ID;
         this.numFloors = numFloors;
         
-        List<Integer>[] newArrayOfLists = new ArrayList[numFloors + 1];
+        // List<Integer>[] newArrayOfLists = new ArrayList[numFloors + 1];
+        ArrayList<ArrayList<Integer>> newArrayOfLists = new ArrayList<ArrayList<Integer>>(numFloors + 1);
+
         for (int i = 0; i <= numFloors; i++) {
-            newArrayOfLists[i] = new ArrayList<Integer>();
+            ArrayList<Integer> sublist = new ArrayList<Integer>();
+            newArrayOfLists.add(sublist);
         }
         pressedButtons = newArrayOfLists;
     }
@@ -46,7 +50,8 @@ public class Elevator implements ElevatorInterface{
 
     @Override
     public void update(int currentFloor, int destinationFloor) {
-        pressedButtons[currentFloor].add(destinationFloor);
+        //pressedButtons[currentFloor].add(destinationFloor);
+        pressedButtons.get(currentFloor).add(destinationFloor);
     }
 
     private void quantStep() {
@@ -99,8 +104,10 @@ public class Elevator implements ElevatorInterface{
     }
 
     private void addUpdated(int x) {
-        for (int i = 0; i < pressedButtons[x].size(); i++) {
-            int destinationFloor = pressedButtons[currentFloor].get(i);
+        ArrayList <Integer> list = pressedButtons.get(x);
+
+        for (int i = 0; i < list.size(); i++) {
+            int destinationFloor = list.get(i);
             if (destinationFloor > currentFloor) {
                 upQueue.add(destinationFloor);
             } else if (destinationFloor < currentFloor) {
@@ -108,7 +115,17 @@ public class Elevator implements ElevatorInterface{
             }
         }
 
-        pressedButtons[x].clear();
+        pressedButtons.get(x).clear();
+        // for (int i = 0; i < pressedButtons[x].size(); i++) {
+        //     int destinationFloor = pressedButtons[currentFloor].get(i);
+        //     if (destinationFloor > currentFloor) {
+        //         upQueue.add(destinationFloor);
+        //     } else if (destinationFloor < currentFloor) {
+        //         downQueue.add(-destinationFloor);
+        //     }
+        // }
+
+        // pressedButtons[x].clear();
     }
 
     @Override
