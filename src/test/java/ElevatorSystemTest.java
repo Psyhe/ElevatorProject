@@ -42,14 +42,38 @@ public class ElevatorSystemTest {
         assertEquals(1, elevatorSystem.getElevator(1).getCurrentFloor());
     }
 
-    // @Test
-    // public void testElevatorSystemPickup3() {
-    //     smallSystem.pickup(10, Elevator.UP);
-    //     for (int i = 0; i < 10; i++)
-    //         smallSystem.step();
-    //     smallSystem.pickup(8, Elevator.UP);
-    //     smallSystem.pickup(9, Elevator.DOWN);
-    //     smallSystem.step();
-    //     System.out.println(s);
-    // }
+    @Test
+    public void testElevatorSystemPickup3() {
+        smallSystem.pickup(10, Elevator.UP);
+        for (int i = 0; i < 10; i++)
+            smallSystem.step();
+        smallSystem.pickup(8, Elevator.UP);
+        smallSystem.pickup(9, Elevator.DOWN);
+        System.err.println(smallSystem.status());
+        smallSystem.step();
+        System.err.println(smallSystem.status());
+        smallSystem.step();
+        assertEquals(8, smallSystem.getElevator(0).getCurrentFloor());
+        System.err.println(smallSystem.status());
+        // assertEquals(9, smallSystem.getElevator(1).getCurrentOrder());
+    }
+
+    @Test
+    public void testElevatorSystemPickup4() {
+        smallSystem.pickup(10, Elevator.UP);
+        for (int i = 0; i < 10; i++)
+            smallSystem.step();
+        smallSystem.pickup(15, Elevator.UP);
+        smallSystem.pickup(4, Elevator.UP);
+        //smallSystem.pickup(9, Elevator.DOWN);
+        System.err.println(smallSystem.status());
+
+        smallSystem.step();
+        System.err.println(smallSystem.status());
+
+        smallSystem.step();
+        //assertEquals(8, smallSystem.getElevator(0).getCurrentFloor());
+        System.err.println(smallSystem.status());
+        // assertEquals(9, smallSystem.getElevator(1).getCurrentOrder());
+    }
 }

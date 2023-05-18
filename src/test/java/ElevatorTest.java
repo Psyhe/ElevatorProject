@@ -9,10 +9,12 @@ import org.junit.Before;
 
 public class ElevatorTest {
     private Elevator elevator1;
+    private Elevator elevator2;
 
     @Before
     public void setUp() {
         elevator1 = new Elevator(10, 5);
+        elevator2 = new Elevator(2, 20);
     }
 
     @Test
@@ -85,6 +87,7 @@ public class ElevatorTest {
         elevator1.step();
         elevator1.pickup(2, Elevator.DOWN);
         elevator1.pickup(1, Elevator.DOWN);
+        elevator1.step();
         floor = elevator1.getCurrentFloor();
         assertEquals(2, floor);
         elevator1.step();
@@ -206,16 +209,16 @@ public class ElevatorTest {
         elevator1.update(2, 4);
         elevator1.step();
         floor = elevator1.getCurrentFloor();
-        assertEquals(1, floor);
+        assertEquals(3, floor);
         elevator1.step();
         floor = elevator1.getCurrentFloor();
-        assertEquals(2, floor);
+        assertEquals(4, floor);
         elevator1.step();
         floor = elevator1.getCurrentFloor();
         assertEquals(3, floor);
         elevator1.step();
         floor = elevator1.getCurrentFloor();
-        assertEquals(4, floor);
+        assertEquals(2, floor);
     }
 
     @Test
@@ -259,47 +262,95 @@ public class ElevatorTest {
         elevator1.pickup(1, Elevator.UP);
         elevator1.pickup(4, Elevator.UP);
         elevator1.step();
-        System.err.println(elevator1.getCurrentFloor());
         elevator1.step();
-        System.err.println(elevator1.getCurrentFloor());
         elevator1.step();
-        System.err.println(elevator1.getCurrentFloor());
         elevator1.pickup(2, Elevator.UP);
-        System.err.println(elevator1.getCurrentFloor());
         elevator1.pickup(1, Elevator.DOWN);
         elevator1.pickup(0, Elevator.DOWN);
         elevator1.step();
         assertEquals(4, elevator1.getCurrentFloor());
-        System.err.println(elevator1.getCurrentFloor());
         elevator1.pickup(1, Elevator.UP);
         elevator1.step();
-        System.err.println(elevator1.getCurrentFloor());
         elevator1.pickup(2, Elevator.UP);
         elevator1.step();
-        System.err.println(elevator1.getCurrentFloor());
         elevator1.pickup(1, Elevator.UP);
         elevator1.step();
-        System.err.println(elevator1.getCurrentFloor());
         elevator1.pickup(2, Elevator.UP);
         elevator1.step();
-        System.err.println(elevator1.getCurrentFloor());
         elevator1.pickup(1, Elevator.UP);
         elevator1.step();
-        System.err.println(elevator1.getCurrentFloor());
         elevator1.pickup(2, Elevator.UP);
         elevator1.step();
-        System.err.println(elevator1.getCurrentFloor());
         elevator1.step();
-        System.err.println(elevator1.getCurrentFloor());
         elevator1.step();
-        System.err.println(elevator1.getCurrentFloor());
         elevator1.step();
-        System.err.println(elevator1.getCurrentFloor());
         elevator1.step();
-        System.err.println(elevator1.getCurrentFloor());
         elevator1.step();
-        System.err.println(elevator1.getCurrentFloor());
         elevator1.step();
-        System.err.println(elevator1.getCurrentFloor());
+        assertEquals(2, elevator1.getCurrentFloor());
+        assertEquals(2, elevator1.getCurrentOrder());
+    }
+
+    @Test
+    public void testStarvation2() {
+        elevator2.pickup(10, Elevator.UP);
+        for (int i = 0; i < 10; i++)
+            elevator2.step();
+        elevator2.step();
+        elevator2.pickup(20, Elevator.UP);
+        elevator2.pickup(8, Elevator.UP);
+        elevator2.pickup(9, Elevator.DOWN);
+        elevator2.step();
+        assertEquals(20, elevator2.getCurrentOrder());
+    }
+
+    @Test
+    public void testStarvation3() {
+        elevator2.pickup(7, Elevator.UP);
+        elevator2.pickup(8, Elevator.UP);
+        elevator2.pickup(19, Elevator.UP);
+        for (int i = 0; i < 8; i++) {
+            elevator2.step();
+        }
+        elevator2.pickup(7, Elevator.UP);
+        elevator2.pickup(8, Elevator.UP);
+        elevator2.pickup(3, Elevator.DOWN);
+        for (int i = 0; i < 8; i++) {
+            elevator2.step();
+        }
+        assertEquals(19, elevator2.getCurrentOrder());
+        for (int i = 0; i < 8; i++) {
+            elevator2.step();
+        }
+        assertEquals(7, elevator2.getCurrentOrder());
+    }
+
+    @Test
+    public void testStarvationDown1() {
+        elevator2.pickup(7, Elevator.UP);
+        elevator2.pickup(8, Elevator.UP);
+        elevator2.pickup(19, Elevator.UP);
+        for (int i = 0; i < 8; i++) {
+            elevator2.step();
+        }
+        elevator2.pickup(6, Elevator.UP);
+        elevator2.pickup(8, Elevator.UP);
+        elevator2.pickup(3, Elevator.DOWN);
+        elevator2.pickup(0, Elevator.DOWN);
+        for (int i = 0; i < 7; i++) {
+            elevator2.step();
+        }
+        assertEquals(19, elevator2.getCurrentOrder());
+        for (int i = 0; i < 8; i++) {
+            elevator2.step();
+        }
+        assertEquals(6, elevator2.getCurrentOrder());
+        elevator1.pickup(7, Elevator.UP);
+        for (int i = 0; i < 13; i++) {
+            elevator2.step();
+        }
+        elevator1.pickup(7, Elevator.UP);
+        assertEquals(0, elevator2.getCurrentOrder());
+        assertEquals(2, elevator2.getCurrentFloor());
     }
 }

@@ -31,17 +31,17 @@ public class Elevator implements ElevatorInterface{
 
     @Override
     public void pickup(int floor, int mydirection) {
-        if (mydirection == UP) {
-            upQueue.add(floor);
-        } else if (mydirection == DOWN) {
-            downQueue.add(-floor);
-        }
-
-        // if (floor >= currentFloor) {
+        // if (mydirection == UP) {
         //     upQueue.add(floor);
-        // } else {
+        // } else if (mydirection == DOWN) {
         //     downQueue.add(-floor);
         // }
+
+        if (floor >= currentFloor) {
+            upQueue.add(floor);
+        } else {
+            downQueue.add(-floor);
+        }
     }
 
     @Override
@@ -119,16 +119,16 @@ public class Elevator implements ElevatorInterface{
             return;
         }
 
-        if (currentOrder == currentFloor) {
-            chooseNextFloor();
-        }
-
         while (upQueue.size() > 0 && upQueue.peek() == currentFloor) {
             upQueue.poll();
         }
 
         while (downQueue.size() > 0 && downQueue.peek() == -currentFloor) {
             downQueue.poll();
+        }
+
+        if (currentOrder == currentFloor) {
+            chooseNextFloor();
         }
         
         if (currentOrder != currentFloor) {
@@ -155,5 +155,25 @@ public class Elevator implements ElevatorInterface{
 
     public int getDirection() {
         return direction;
+    }
+
+    public int getCurrentOrder() {
+        return currentOrder;
+    }
+
+    public int getUpQueueSize() {
+        return upQueue.size();
+    }
+
+    public int getDownQueueSize() {
+        return downQueue.size();
+    }
+
+    public PriorityQueue<Integer> getUpQueue() {
+        return upQueue;
+    }
+
+    public PriorityQueue<Integer> getDownQueue() {
+        return downQueue;
     }
 }
