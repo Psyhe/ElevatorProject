@@ -10,6 +10,7 @@ I understand "update" as pressing the button for the desired floor inside one of
 I understand "step()" as moving to the next floor by either going one floor upwards, one floor downwards, or staying if there are no requests.
 
 To run the program, please follow these commands in the project folder within the terminal:
+
 mvn clean install
 java -cp target/classes elevatorsystem.Main
 
